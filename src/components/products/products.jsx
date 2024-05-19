@@ -1,6 +1,8 @@
+import ProductCard from "../common/productCard";
+
 const Products = () => {
     return (<>
-        Products
+        <ProductCard></ProductCard>
     </>);
 };
 
