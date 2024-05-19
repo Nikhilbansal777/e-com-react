@@ -25,13 +25,13 @@ const Navbar = () => {
                         <i className="bx bx-menu icon-single"></i>
                     </button>
 
-                    <a className="navbar-brand">
+                    <a className="navbar-brand" href="/">
                         <h4 className="font-weight-bold">Logo</h4>
                     </a>
 
                     <ul className="navbar-nav ml-auto d-block d-md-none">
                         <li className="nav-item">
-                            <a className="btn btn-link"><i className="fa-cart-shopping"></i><span className="badge badge-danger">3</span></a>
+                            <a href="/" className="btn btn-link"><i className="fa-cart-shopping"></i><span className="badge badge-danger">3</span></a>
                         </li>
                     </ul>
 
@@ -43,10 +43,10 @@ const Navbar = () => {
 
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="btn btn-link"><i className="fa fa-cart-shopping"></i> <span className="badge badge-danger">3</span></a>
+                                <a href="/" className="btn btn-link"><i className="fa fa-cart-shopping"></i> <span className="badge badge-danger">3</span></a>
                             </li>
                             <li className="nav-item ml-md-3">
-                                <a className="btn btn-primary"><i className="fa fa-user"></i> Log In / Register</a>
+                                <a href="/" className="btn btn-primary"><i className="fa fa-user"></i> Log In / Register</a>
                             </li>
                         </ul>
                     </div>
@@ -65,12 +65,12 @@ const Navbar = () => {
                                 <NavLink className="nav-link" to="/products">Products</NavLink>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a href="/" className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Support
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link">Contact</a>
+                                <a href="/" className="nav-link">Contact</a>
                             </li>
                         </ul>
                     </div>
