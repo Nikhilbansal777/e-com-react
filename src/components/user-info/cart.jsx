@@ -1,4 +1,4 @@
-import '../../styles/cart.css'
+import '../../styles/cart.css';
 const Cart = () => {
     return (<>
         <h1>Shopping Cart</h1>
@@ -16,7 +16,7 @@ const Cart = () => {
 
             <div class="product">
                 <div class="product-image">
-                    <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg" />
+                    <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg" alt='' />
                 </div>
                 <div class="product-details">
                     <div class="product-title">Dingo Dog Bones</div>
@@ -36,7 +36,7 @@ const Cart = () => {
 
             <div class="product">
                 <div class="product-image">
-                    <img src="https://s.cdpn.io/3/large-NutroNaturalChoiceAdultLambMealandRiceDryDogFood.png" />
+                    <img src="https://s.cdpn.io/3/large-NutroNaturalChoiceAdultLambMealandRiceDryDogFood.png" alt='' />
                 </div>
                 <div class="product-details">
                     <div class="product-title">Nutro™ Adult Lamb and Rice Dog Food</div>

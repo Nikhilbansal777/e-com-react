@@ -18,9 +18,9 @@ const AdminLogin = () => {
 
     useEffect(() => {
         dispatch(getAdminCred());
-    }, []);
+    }, [dispatch]);
 
-    const { adminCred, isValuesCorrect, errorMessage, isAdminSignedIn } = useSelector(state => state.adminCred);
+    const { adminCred, isValuesCorrect, errorMessage } = useSelector(state => state.adminCred);
     console.log(adminCred);
 
     const validateFields = (fields) => {
@@ -75,7 +75,7 @@ const AdminLogin = () => {
 
             setIsSubmit(false);
         }
-    }, [isSubmit, setError, adminCred, dispatch]);
+    }, [isSubmit, setError, adminCred, dispatch, inputFields, navigate, errors]);
 
     console.log(isValuesCorrect);
     return (<>

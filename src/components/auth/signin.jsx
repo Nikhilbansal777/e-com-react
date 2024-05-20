@@ -10,7 +10,7 @@ const Signin = () => {
                     <input type="password" placeholder="password" />
                     <input type="text" placeholder="email address" />
                     <button>create</button>
-                    <p className="message">Already registered? <a href="#">Sign In</a></p>
+                    <p className="message">Already registered? <NavLink to="/">Sign In</NavLink></p>
                 </form>
                 <form className="login-form">
                     <input type="text" placeholder="username" />
