@@ -4,6 +4,7 @@ const Signin = () => {
     return (<>
         <div className="login-page">
             <div className="form">
+                <h3>Login</h3>
                 <form className="register-form">
                     <input type="text" placeholder="name" />
                     <input type="password" placeholder="password" />

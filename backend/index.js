@@ -30,6 +30,17 @@ app.get('/api/getData', async (req, res) => {
     }
 });
 
+app.get('/api/adminCreds', async (req, res) => {
+    try {
+        const snapshot = await db.collection('admincred').get();
+        const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        res.status(200).json(items);
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+});
+
+
 // Post data endpoint
 app.post('/api/postData', async (req, res) => {
     try {

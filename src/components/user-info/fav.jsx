@@ -1,6 +1,7 @@
+import ProductCard from "../common/productCard";
 const Fav = () => {
     return (<>
-        Favs
+        <ProductCard></ProductCard>
     </>);
 };
 

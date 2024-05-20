@@ -1,8 +1,19 @@
 import { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { isAdminLoggedIn } from "../../redux/reducers/adminloginReducer";
 import "../../styles/navbar.css";
 const Navbar = () => {
     const [subNav, setSubNav] = useState(['All', 'Electronic', 'Mobiles', 'Accessories', 'Fashion']);
+    const { isAdminSignedIn } = useSelector(state => state.adminCred);
+    console.log(isAdminSignedIn);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const logout = () => {
+        dispatch(isAdminLoggedIn(false));
+        navigate('/admin-auth');
+    };
     return (
         <>
             <div className="utility-nav d-none d-md-block">
@@ -51,9 +62,16 @@ const Navbar = () => {
                             <li className="nav-item ml-md-3">
                                 <NavLink to="/orders" className="btn btn-secondary"> <i className="fa fa-shopping-bag"></i> Orders</NavLink>
                             </li>
-                            <li className="nav-item ml-md-3">
-                                <NavLink to="/signin" className="btn btn-primary"><i className="fa fa-user"></i> Log In</NavLink>
-                            </li>
+                            {isAdminSignedIn
+                                ?
+                                <li className="nav-item ml-md-3">
+                                    <a onClick={logout} className="btn btn-primary"><i className="fa fa-user"></i> Log out</a>
+                                </li>
+                                :
+                                <li className="nav-item ml-md-3">
+                                    <NavLink to="/signin" className="btn btn-primary"><i className="fa fa-user"></i> Log In</NavLink>
+                                </li>
+                            }
                         </ul>
                     </div>
 
