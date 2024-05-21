@@ -2,21 +2,36 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { isAdminLoggedIn } from "../../redux/reducers/adminloginReducer";
+import { isUserSigninSuccessfull } from "../../redux/reducers/userSigninReducer";
+import { isUserSignup } from "../../redux/reducers/userSignupReducer";
 import "../../styles/navbar.css";
 const Navbar = () => {
     const [subNav] = useState(['All', 'Electronic', 'Mobiles', 'Accessories', 'Fashion']);
     const { isAdminSignedIn } = useSelector(state => state.adminCred);
+    const { isSignup } = useSelector(state => state.signup);
+    const { isUserSignin } = useSelector(state => state.signin);
     console.log(isAdminSignedIn);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const logout = () => {
-        dispatch(isAdminLoggedIn(false));
-        navigate('/admin-auth');
+        if (isAdminLoggedIn) {
+            dispatch(isAdminLoggedIn(false));
+            navigate('/admin-auth');
+        }
+        if (isSignup) {
+            dispatch(isUserSignup(false));
+            navigate('/signin');
+        }
+        if (isUserSignin) {
+            dispatch(isUserSigninSuccessfull(false));
+            navigate('/signin');
+        }
     };
+    console.log(isSignup);
     return (
         <>
-            <div className="utility-nav d-none d-md-block">
+            {!isAdminSignedIn && <div className="utility-nav d-none d-md-block">
                 <div className="container">
                     <div className="row">
                         <div className="col-12 col-md-6">
@@ -30,7 +45,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
-
+            }
             <nav className="navbar navbar-expand-md navbar-light bg-light main-menu" >
                 <div className="container">
 
@@ -53,16 +68,20 @@ const Navbar = () => {
                         </form>
 
                         <ul className="navbar-nav">
-                            <li className="nav-item">
+                            {!isAdminSignedIn && <li className="nav-item">
                                 <NavLink to="/cart" className="btn"><i className="fa fa-shopping-cart" style={{ fontSize: '25px' }}></i> <span className="badge badge-danger">3</span></NavLink>
-                            </li>
-                            <li className="nav-item ml-md-3">
+                            </li>}
+                            {!isAdminSignedIn && <li className="nav-item ml-md-3">
                                 <NavLink to="/fav" className="btn btn-link"><i className="fa fa-bookmark" style={{ fontSize: '23px' }}></i></NavLink>
-                            </li>
-                            <li className="nav-item ml-md-3">
+                            </li>}
+                            {!isAdminSignedIn ? <li className="nav-item ml-md-3">
                                 <NavLink to="/orders" className="btn btn-secondary"> <i className="fa fa-shopping-bag"></i> Orders</NavLink>
-                            </li>
-                            {isAdminSignedIn
+                            </li> :
+                                <li className="nav-item ml-md-3">
+                                    <NavLink to="/addNewProduct" className="btn btn-secondary">Add new Product</NavLink>
+                                </li>
+                            }
+                            {isAdminSignedIn || isSignup || isUserSignin
                                 ?
                                 <li className="nav-item ml-md-3">
                                     <button onClick={logout} className="btn btn-primary"><i className="fa fa-user"></i> Log out</button>
@@ -78,7 +97,7 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            <nav className="navbar navbar-expand-md navbar-light bg-light sub-menu">
+            {!isAdminSignedIn && <nav className="navbar navbar-expand-md navbar-light bg-light sub-menu">
                 <div className="collapse navbar-collapse" id="navbar">
                     <ul className="navbar-nav mx-auto">
                         <NavLink className="nav-link" to="/">Home</NavLink>
@@ -100,7 +119,7 @@ const Navbar = () => {
 
                     </ul>
                 </div>
-            </nav>
+            </nav>}
             <Outlet></Outlet>
         </>
     );

@@ -76,8 +76,6 @@ const AdminLogin = () => {
             setIsSubmit(false);
         }
     }, [isSubmit, setError, adminCred, dispatch, inputFields, navigate, errors]);
-
-    console.log(isValuesCorrect);
     return (<>
         <div className="login-page">
             <div className="form">
@@ -90,7 +88,6 @@ const AdminLogin = () => {
 
                     {isValuesCorrect && <p className="error-message"> {errorMessage}</p>}
                     <button onClick={login}>login</button>
-                    {isValuesCorrect}
 
                 </form>
             </div>

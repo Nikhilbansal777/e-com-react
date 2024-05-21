@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navigate, Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
+import AddProduct from "../components/admin/addProduct";
 import AdminLogin from "../components/admin/admin-login";
 import AdminDashBoard from "../components/admin/dashboard";
 import Signin from "../components/auth/signin";
@@ -35,6 +36,7 @@ export const router = createBrowserRouter(
             <Route path="fav" element={<Fav />} />
             <Route path="admin-auth" element={<AuthRedirect element={<AdminLogin />} />} />
             <Route path="admin-dashboard" element={<ProtectedRoute element={<AdminDashBoard />} />} />
+            <Route path="addNewProduct" element={<AddProduct />} />
         </Route>
     )
 );

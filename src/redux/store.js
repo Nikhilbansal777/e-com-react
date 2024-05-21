@@ -4,6 +4,8 @@ import persistReducer from "redux-persist/es/persistReducer";
 import storage from "redux-persist/lib/storage";
 import adminloginReducer from "./reducers/adminloginReducer";
 import getProductsReducer from "./reducers/getProductsReducer";
+import userSignupReducer from "./reducers/userSignupReducer";
+import userSigninReducer from "./reducers/userSigninReducer";
 
 
 const persistConfig = {
@@ -13,7 +15,9 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     product: getProductsReducer,
-    adminCred: adminloginReducer
+    adminCred: adminloginReducer,
+    signup: userSignupReducer,
+    signin: userSigninReducer
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
