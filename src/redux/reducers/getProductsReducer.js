@@ -15,7 +15,6 @@ const productSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getProducts.fulfilled, (state, action) => {
-                console.log(action.payload);
                 state.products = action.payload;
             })
             .addMatcher((action) => action.type.endsWith("/pending"), (state) => {

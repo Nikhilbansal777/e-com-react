@@ -10,8 +10,10 @@ import Categories from "../components/products/categories";
 import Home from "../components/products/home";
 import Products from "../components/products/products";
 import Cart from "../components/user-info/cart";
+import Checkout from "../components/user-info/checkout";
 import Fav from "../components/user-info/fav";
 import Orders from "../components/user-info/orders";
+import User from "../components/user-info/user";
 
 const ProtectedRoute = ({ element }) => {
     const { isAdminSignedIn } = useSelector(state => state.adminCred);
@@ -36,7 +38,10 @@ export const router = createBrowserRouter(
             <Route path="fav" element={<Fav />} />
             <Route path="admin-auth" element={<AuthRedirect element={<AdminLogin />} />} />
             <Route path="admin-dashboard" element={<ProtectedRoute element={<AdminDashBoard />} />} />
-            <Route path="addNewProduct" element={<AddProduct />} />
+            <Route path="addNewProduct" element={<ProtectedRoute element={<AddProduct />} />} />
+            <Route path="user" element={< User />}>
+                <Route path="checkout" element={<Checkout />} />
+            </Route>
         </Route>
     )
 );

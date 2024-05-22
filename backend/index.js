@@ -99,6 +99,19 @@ app.post('/api/signin', async (req, res) => {
     }
 });
 
+
+app.post("/api/addNewProduct", async (req, res) => {
+    try {
+        const data = req.body;
+        await db.collection('newProduct').add(data);
+        res.status(200).send({ message: "Product added successfully!" });
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+});
+
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

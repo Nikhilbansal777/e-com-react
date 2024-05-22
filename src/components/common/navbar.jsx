@@ -74,9 +74,9 @@ const Navbar = () => {
                             {!isAdminSignedIn && <li className="nav-item ml-md-3">
                                 <NavLink to="/fav" className="btn btn-link"><i className="fa fa-bookmark" style={{ fontSize: '23px' }}></i></NavLink>
                             </li>}
-                            {!isAdminSignedIn ? <li className="nav-item ml-md-3">
+                            {!isAdminSignedIn ? (isSignup || isUserSignin && <li className="nav-item ml-md-3">
                                 <NavLink to="/orders" className="btn btn-secondary"> <i className="fa fa-shopping-bag"></i> Orders</NavLink>
-                            </li> :
+                            </li>) :
                                 <li className="nav-item ml-md-3">
                                     <NavLink to="/addNewProduct" className="btn btn-secondary">Add new Product</NavLink>
                                 </li>

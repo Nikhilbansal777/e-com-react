@@ -35,7 +35,6 @@ const AdminLogin = () => {
     };
     const login = (e) => {
         e.preventDefault();
-        console.log(inputFields);
         setError(validateFields(inputFields));
         setIsSubmit(true);
     };
@@ -56,17 +55,7 @@ const AdminLogin = () => {
         if (isSubmit && Object.keys(errors).length === 0) {
             if (inputFields.username === adminCred[0].username && inputFields.password === adminCred[0].password) {
                 dispatch(checkValues(false));
-                toast("Sign in Successfull!", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce
-                });
+                toast.success("Sign in Successfull!");
                 dispatch(isAdminLoggedIn(true));
                 navigate('/admin-dashboard');
             } else {
