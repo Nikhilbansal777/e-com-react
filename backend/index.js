@@ -15,8 +15,11 @@ admin.initializeApp({
 const db = admin.firestore();
 
 const app = express();
+
+// Increase the payload limit before other middlewares
+app.use(bodyParser.json({ limit: '150mb' }));
+app.use(bodyParser.urlencoded({ limit: '150mb', extended: true }));
 app.use(cors({ origin: true }));
-app.use(bodyParser.json());
 
 // Get data endpoint
 app.get('/api/getData', async (req, res) => {
@@ -110,7 +113,27 @@ app.post("/api/addNewProduct", async (req, res) => {
     }
 });
 
+app.get('/api/getProducts', async (req, res) => {
+    try {
+        const snapshot = await db.collection('newProduct').get();
+        const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        res.status(200).json(items);
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+});
 
+app.get('/api/getCategoryProducts/:category', async (req, res) => {
+    try {
+        const category = req.params.category;
+        const snapshot = await db.collection('newProduct').where('category', '==', category).get();
+        const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        console.log(products);
+        res.status(200).json(products);
+    } catch (err) {
+        res.status(500).send(err.toString());
+    }
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

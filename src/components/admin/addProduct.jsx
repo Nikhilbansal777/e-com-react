@@ -10,7 +10,8 @@ const AddProduct = () => {
         productName: "",
         productImage: "",
         category: "",
-        description: ""
+        description: "",
+        price: "0"
     });
     const [errors, setErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
@@ -54,7 +55,7 @@ const AddProduct = () => {
     useEffect(() => {
         if (isSubmit && Object.keys(errors).length === 0) {
             console.log(inputFields);
-            axios.post("http://localhost:5000/api/addNewProduct").then((res) => {
+            axios.post("http://localhost:5000/api/addNewProduct", inputFields).then((res) => {
                 console.log(res);
                 toast.success(res.data.message);
                 navigate('/admin-dashboard');
@@ -78,6 +79,9 @@ const AddProduct = () => {
         }
         if (!values.description) {
             error['description'] = 'Description is required';
+        }
+        if (!values.price) {
+            error['price'] = 'Price is required';
         }
         return error;
     };
@@ -130,6 +134,20 @@ const AddProduct = () => {
                     </select>
                 </label>
                 <p className='error-message'> {errors['category']} </p>
+
+                <label className="field-checkout">
+                    <span className="field__label" htmlFor="price">Price In INR</span>
+                    <input
+                        className="field__input-checkout"
+                        type="number"
+                        name="price"
+                        onChange={handleChange}
+                        value={inputFields.price}
+                        placeholder='Price'
+                    />
+                </label>
+                <p className='error-message'> {errors['price']} </p>
+
                 <label className="field-checkout">
                     <span className="field__label" htmlFor="description">Description</span>
                     <textarea

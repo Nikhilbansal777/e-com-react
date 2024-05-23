@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/reducers/getProductsReducer";
 import ProductCard from "../common/productCard";
 
-const Products = () => {
+const Products = (  ) => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getProducts());
@@ -11,7 +11,7 @@ const Products = () => {
     const { products } = useSelector(state => state.product);
     console.log(products);
     return (<>
-        <ProductCard></ProductCard>
+        <ProductCard products={products}></ProductCard>
     </>);
 };
 
