@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { isUserSignup, setSignupInfo } from '../../redux/reducers/userSignupReducer';
+import { isUserSignup, resetAdminState, setSignupInfo } from '../../redux/reducers/userSignupReducer';
 import '../../styles/signin.css';
 const Signup = () => {
     const dispatch = useDispatch();

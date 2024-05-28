@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { isUserSigninSuccessfull } from '../../redux/reducers/userSigninReducer';
+import { isUserSigninSuccessfull, setSigninInfo } from '../../redux/reducers/userSigninReducer';
 import '../../styles/signin.css';
 const Signin = () => {
     const dispatch = useDispatch();
@@ -14,7 +14,6 @@ const Signin = () => {
     const [isSubmit, setIsSubmit] = useState(false);
     const [errors, setError] = useState({});
     const navigate = useNavigate();
-
 
     const validateFields = (fields) => {
         let tempErrors = {};
@@ -51,6 +50,7 @@ const Signin = () => {
             axios.post('http://localhost:5000/api/signin', inputFields).then((res) => {
                 console.log(res);
                 dispatch(isUserSigninSuccessfull(true));
+                dispatch(setSigninInfo(inputFields))
                 toast.success("Sign in Successfull!");
                 navigate("/products");
             }).catch((err) => {

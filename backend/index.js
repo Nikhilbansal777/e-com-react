@@ -128,13 +128,52 @@ app.get('/api/getCategoryProducts/:category', async (req, res) => {
         const category = req.params.category;
         const snapshot = await db.collection('newProduct').where('category', '==', category).get();
         const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        console.log(products);
         res.status(200).json(products);
     } catch (err) {
         res.status(500).send(err.toString());
     }
 });
 
+app.delete('/api/deleteProduct/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const productRef = db.collection('newProduct').doc(id);
+
+        const doc = await productRef.get();
+        if (!doc.exists) {
+            return res.status(404).send('Product not found');
+        }
+        await productRef.delete();
+        res.status(200).json({ id });
+    } catch (err) {
+        res.status(500).send(err.toString());
+    }
+});
+
+app.post('/api/setWishlist', async (req, res) => {
+    try {
+        const { email, id } = req.body;
+        console.log("Request body:", req.body);
+        const userSnapshot = await db.collection('signup').where('email', '==', email).get();
+
+        if (userSnapshot.empty) {
+            return res.status(404).send('User not found');
+        }
+
+        // Check if the product is already in the user's wishlist
+        const wishlistQuery = await db.collection('wishlist').where('email', '==', email).where('id', '==', id).get();
+        if (!wishlistQuery.empty) {
+            return res.status(402).send("Product already exists in wishlist");
+        }
+
+        // If the product is not in the wishlist, add it
+        await db.collection('wishlist').add(req.body);
+        res.status(200).send('Product added to wishlist successfully!');
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send(error.toString());
+    }
+});
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
