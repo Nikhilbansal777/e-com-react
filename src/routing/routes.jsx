@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Navigate, Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import AddProduct from "../components/admin/addProduct";
 import AdminLogin from "../components/admin/admin-login";
+import AdminProducts from "../components/admin/admin-products";
 import AdminDashBoard from "../components/admin/dashboard";
 import Signin from "../components/auth/signin";
 import Signup from "../components/auth/signup";
@@ -14,6 +15,8 @@ import Checkout from "../components/user-info/checkout";
 import Fav from "../components/user-info/fav";
 import Orders from "../components/user-info/orders";
 import User from "../components/user-info/user";
+import AdminUsers from "../components/admin/admin-users";
+import AdminOrders from "../components/admin/admin-orders";
 
 const ProtectedRoute = ({ element }) => {
     const { isAdminSignedIn } = useSelector(state => state.adminCred);
@@ -37,7 +40,11 @@ export const router = createBrowserRouter(
             <Route path="orders" element={<Orders />} />
             <Route path="fav" element={<Fav />} />
             <Route path="admin-auth" element={<AuthRedirect element={<AdminLogin />} />} />
-            <Route path="admin-dashboard" element={<ProtectedRoute element={<AdminDashBoard />} />} />
+            <Route path="admin-dashboard" element={<ProtectedRoute element={<AdminDashBoard />} />} >
+                <Route index element={<ProtectedRoute element={<AdminUsers />}></ProtectedRoute>}></Route>
+                <Route path="products" element={<ProtectedRoute element={<AdminProducts />}></ProtectedRoute>}></Route>
+                <Route path="orders" element={<ProtectedRoute element={<AdminOrders />}></ProtectedRoute>}></Route>
+            </Route>
             <Route path="addNewProduct" element={<ProtectedRoute element={<AddProduct />} />} />
             <Route path="user" element={< User />}>
                 <Route path="checkout" element={<Checkout />} />

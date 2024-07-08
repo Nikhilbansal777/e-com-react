@@ -124,3 +124,18 @@ h2{
     height: 50px;
     width: 50px;
  }
+
+ nav {
+	 box-shadow: 10px 10px;
+ }
+ nav ul {
+	display: flex;
+	justify-content: space-evenly;
+ }
+ nav ul li {
+	list-style: none;
+ }
+
+ nav ul li a {
+	cursor: pointer;
+ }

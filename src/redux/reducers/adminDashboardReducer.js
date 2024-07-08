@@ -31,8 +31,27 @@ export const getProductsForAdmin = createAsyncThunk("products/getProducts", asyn
     return res.data;
 });
 
+export const getUsersForAdmin = createAsyncThunk("products/getUsers", async () => {
+    const res = await axios.get("http://localhost:5000/api/getUsers");
+    return res.data;
+});
+export const getOrdersForAdmin = createAsyncThunk("products/getOrders", async () => {
+    const res = await axios.get("http://localhost:5000/api/getOrders");
+    return res.data;
+});
+
 export const deleteProductsForAdmin = createAsyncThunk("products/deleteProducts", async (id) => {
     const res = await axios.delete(`http://localhost:5000/api/deleteProduct/${id}`);
+    return res.data.id;
+});
+
+export const deleteUsersForAdmin = createAsyncThunk("products/deleteUsers", async (id) => {
+    const res = await axios.delete(`http://localhost:5000/api/deleteUser/${id}`);
+    return res.data.id;
+});
+
+export const deleteOrdersForAdmin = createAsyncThunk("products/deleteOrder", async (id) => {
+    const res = await axios.delete(`http://localhost:5000/api/deleteOrder/${id}`);
     return res.data.id;
 });
 

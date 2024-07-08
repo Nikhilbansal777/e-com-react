@@ -174,6 +174,82 @@ app.post('/api/setWishlist', async (req, res) => {
         res.status(500).send(error.toString());
     }
 });
+
+app.get('/api/getWishlistProducts', async (req, res) => {
+    try {
+        const email = req.query.email;
+
+        if (!email) {
+            return res.status(400).send("Email is required");
+        }
+
+        const wishlistSnapshot = await db.collection('wishlist').where('email', '==', email).get();
+
+        if (wishlistSnapshot.empty) {
+            return res.status(404).send("No wishlist products found for this email");
+        }
+
+        const items = wishlistSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        res.status(200).json(items);
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+});
+
+app.get('/api/getUsers', async (req, res) => {
+    try {
+        const snapshot = await db.collection('signup').get();
+        const users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+});
+
+// Get all orders
+app.get('/api/getOrders', async (req, res) => {
+    try {
+        const snapshot = await db.collection('orders').get();
+        const orders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        res.status(200).json(orders);
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
+});
+
+app.delete('/api/deleteUser/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const userRef = db.collection('users').doc(id);
+
+        const doc = await userRef.get();
+        if (!doc.exists) {
+            return res.status(404).send('User not found');
+        }
+        await userRef.delete();
+        res.status(200).json({ id });
+    } catch (err) {
+        res.status(500).send(err.toString());
+    }
+});
+
+// Delete order by ID
+app.delete('/api/deleteOrder/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const orderRef = db.collection('orders').doc(id);
+
+        const doc = await orderRef.get();
+        if (!doc.exists) {
+            return res.status(404).send('Order not found');
+        }
+        await orderRef.delete();
+        res.status(200).json({ id });
+    } catch (err) {
+        res.status(500).send(err.toString());
+    }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

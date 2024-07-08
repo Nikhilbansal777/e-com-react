@@ -16,6 +16,7 @@ export const getWishlistProducts = createAsyncThunk("products/getWishlistProduct
     return res.data;
 });
 
+
 export const setWishlist = createAsyncThunk('products/setWishlist', async (wishlistProduct) => {
     const res = await axios.post(`http://localhost:5000/api/setWishlist`, wishlistProduct);
     return res.data;
@@ -42,7 +43,10 @@ const productSlice = createSlice({
                 state.status = "succeeded";
             })
             .addCase(setWishlist.fulfilled, (state, action) => {
-                // state.wishlist.push(action.payload);
+                state.status = "succeeded";
+            })
+            .addCase(getWishlistProducts.fulfilled, (state, action) => {
+                state.wishlist = action.payload;
                 state.status = "succeeded";
             })
             .addMatcher((action) => action.type.endsWith("/pending"), (state) => {
